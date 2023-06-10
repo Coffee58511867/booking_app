@@ -15,7 +15,7 @@ class _TabPageState extends State<TabPage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Payments"),
+            title: const Text("Payment Methods"),
             centerTitle: true,
             bottom: const TabBar(tabs: [
               Tab(text: "Mpesa"),

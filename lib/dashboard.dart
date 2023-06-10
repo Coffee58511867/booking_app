@@ -33,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        iconSize: 35,
+        // iconSize: 35,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

@@ -12,8 +12,10 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Booking"),
-      ),
+          title: const Text("Booking"),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          automaticallyImplyLeading: false),
     );
   }
 }

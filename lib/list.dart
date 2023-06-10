@@ -12,10 +12,10 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("List"),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
+          title: const Text("List"),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          automaticallyImplyLeading: false),
     );
   }
 }

@@ -14,6 +14,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text("Settings"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blue,
       ),
     );

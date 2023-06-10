@@ -1,4 +1,6 @@
+import 'package:booking_app/book.dart';
 import 'package:booking_app/home.dart';
+import 'package:booking_app/list.dart';
 import 'package:booking_app/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
   List<Widget> pages = [
     const HomePage(),
+    const BookingPage(),
+    const ListPage(),
     const ProfilePage(),
   ];
 
@@ -26,10 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      // body: pages[_selectedIndex],
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         iconSize: 35,

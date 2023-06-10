@@ -26,13 +26,37 @@ class _ListPageState extends State<ListPage> {
             automaticallyImplyLeading: false),
         body: ListView(
           children: product.map((pro) {
-            return Card(
-              child: Row(
-                children: [
-                  Container(
-                    child: Text(pro.productName),
-                  )
-                ],
+            return Container(
+              margin: const EdgeInsets.only(top: 16.0, left: 32.0, right: 32.0),
+              child: Card(
+                // color: Colors.blue[300],
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 16.0, left: 8.0),
+                      height: 34,
+                      child: Text(
+                        pro.productName,
+                        style: const TextStyle(
+                            fontFamily: AutofillHints.addressState,
+                            fontSize: 18.0,
+                            // color: Colors.white54,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 16.0, left: 16.0),
+                      height: 34,
+                      child: Text(
+                        pro.productName,
+                        style: const TextStyle(
+                            fontFamily: AutofillHints.addressState,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
               ),
             );
           }).toList(),

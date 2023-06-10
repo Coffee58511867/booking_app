@@ -34,6 +34,7 @@ class _DashboardPageState extends State<DashboardPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         // iconSize: 35,
+        // backgroundColor: Colors.blue[600],
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

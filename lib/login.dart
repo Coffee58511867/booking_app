@@ -83,6 +83,11 @@ class _SigninState extends State<Signin> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              "Welcome Back",
+              style: TextStyle(fontSize: 23.0),
+            ),
+            const SizedBox(height: 16.0),
             TextField(
               controller: emailController,
               onChanged: (value) {
@@ -136,7 +141,7 @@ class _SigninState extends State<Signin> {
               onPressed: _register,
               child: const Text('Login'),
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 10.0),
             ElevatedButton(
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(

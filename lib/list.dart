@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ListPage extends StatefulWidget {
+  const ListPage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ListPage> createState() => _ListPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text("List"),
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),

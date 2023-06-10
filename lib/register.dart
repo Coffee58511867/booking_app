@@ -63,10 +63,6 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         phoneErrorText = 'Phone number is required';
       });
-    } else if (phone.length != 8) {
-      setState(() {
-        phoneErrorText = 'Password should be at  8 digits long';
-      });
     } else {
       setState(() {
         phoneErrorText = null;
@@ -178,15 +174,47 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             const SizedBox(height: 16.0),
-            const TextField(
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: emailController,
+              onChanged: (value) {
+                if (value.isEmpty) {
+                  setState(() {
+                    emailErrorText = 'Email is required';
+                  });
+                } else {
+                  setState(() {
+                    emailErrorText = null;
+                  });
+                }
+              },
               decoration: InputDecoration(
                 labelText: 'Email',
+                errorText: emailErrorText,
               ),
             ),
             const SizedBox(height: 16.0),
-            const TextField(
+            TextField(
+              controller: passwordController,
+              onChanged: (value) {
+                if (value.isEmpty) {
+                  setState(() {
+                    passwordErrorText = 'Password is required';
+                  });
+                } else if (value.length < 8) {
+                  setState(() {
+                    passwordErrorText =
+                        'Password should be at least 8 characters long';
+                  });
+                } else {
+                  setState(() {
+                    passwordErrorText = null;
+                  });
+                }
+              },
               decoration: InputDecoration(
                 labelText: 'Password',
+                errorText: passwordErrorText,
               ),
               obscureText: true,
             ),

@@ -1,5 +1,5 @@
-import 'package:booking_app/login.dart';
-import 'package:booking_app/register.dart';
+import 'package:booking_app/ecocash.dart';
+import 'package:booking_app/mpesa.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {
@@ -23,10 +23,7 @@ class _TabPageState extends State<TabPage> {
             ]),
           ),
           body: const TabBarView(
-            children: [
-              RegisterPage(),
-              LoginPage(),
-            ],
+            children: [MpesaPage(), EcocashPage()],
           ),
         ),
       );

@@ -3,6 +3,7 @@ import 'package:booking_app/home.dart';
 import 'package:booking_app/login.dart';
 import 'package:booking_app/profile.dart';
 import 'package:booking_app/register.dart';
+import 'package:booking_app/tabs.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/dashboard': (context) => const DashboardPage(),
         '/home': (context) => const HomePage(),
+        '/tabs': (context) => const TabPage(),
       },
     );
   }

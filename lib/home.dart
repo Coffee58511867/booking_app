@@ -16,9 +16,29 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-      body: const Center(
+      body: Padding(
+        padding: const EdgeInsets.all(100.0),
         child: Column(
-          children: [Text("HomePage")],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Welcome Back",
+              style: TextStyle(fontSize: 23.0),
+            ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  const Size(250, 30),
+                ),
+              ),
+              onPressed: () {
+                //navigate to tabs Page
+                Navigator.pushNamed(context, '/tabs');
+              },
+              child: const Text('Go to Tabs'),
+            ),
+          ],
         ),
       ),
     );

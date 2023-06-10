@@ -1,3 +1,5 @@
+import 'package:booking_app/login.dart';
+import 'package:booking_app/register.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {
@@ -13,12 +15,18 @@ class _TabPageState extends State<TabPage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Tab Bars"),
+            title: const Text("Payments"),
             centerTitle: true,
             bottom: const TabBar(tabs: [
               Tab(text: "Mpesa"),
-              Tab(text: "Mpesa"),
+              Tab(text: "Ecocash"),
             ]),
+          ),
+          body: const TabBarView(
+            children: [
+              RegisterPage(),
+              LoginPage(),
+            ],
           ),
         ),
       );

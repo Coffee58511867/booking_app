@@ -44,27 +44,43 @@ class Profile extends StatelessWidget {
               style: TextStyle(
                   fontFamily: AutofillHints.addressState, fontSize: 25.0),
             ),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               "User Address",
               style: TextStyle(
                   fontFamily: AutofillHints.addressState, fontSize: 25.0),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               children: [
-                Text(
+                const Text(
                   "User Profile",
                   style: TextStyle(
                       fontFamily: AutofillHints.addressState, fontSize: 25.0),
                 ),
-                Text(
-                  "hlalelemaroa@gmail.com",
-                  style: TextStyle(
-                      fontFamily: AutofillHints.addressState, fontSize: 18.0),
-                ),
-                Container()
+                Container(
+                  margin: const EdgeInsets.only(left: 8.0),
+                  child: const Text(
+                    "hlalelemaroa@gmail.com",
+                    style: TextStyle(
+                      fontFamily: AutofillHints.addressState,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                )
               ],
+            ),
+            const SizedBox(height: 64.0),
+            ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  const Size(250, 30),
+                ),
+              ),
+              child: const Text("Logout"),
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
             )
           ],
         ),

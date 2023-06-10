@@ -1,3 +1,4 @@
+import 'package:booking_app/products.dart';
 import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
@@ -8,14 +9,35 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  final List<Products> product = [
+    Products(id: 'Pro1', productName: 'Laptop', productPrice: 45.0),
+    Products(id: 'Pro1', productName: 'Laptop', productPrice: 45.0),
+    Products(id: 'Pro1', productName: 'Laptop', productPrice: 45.0),
+    Products(id: 'Pro1', productName: 'Laptop', productPrice: 45.0),
+  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text("List"),
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-          automaticallyImplyLeading: false),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+            title: const Text("List"),
+            centerTitle: true,
+            backgroundColor: Colors.blue,
+            automaticallyImplyLeading: false),
+        body: ListView(
+          children: product.map((pro) {
+            return Card(
+              child: Row(
+                children: [
+                  Container(
+                    child: Text(pro.productName),
+                  )
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+      ),
     );
   }
 }

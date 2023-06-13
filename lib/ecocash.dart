@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EcocashPage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _MpesaState extends State<Mpesa> {
   String? amountErrorText;
   String? phoneErrorText;
 
-  void _payment() {
+  Future<void> _payment() async {
     String phone = phoneController.text;
     String amount = amountController.text;
 
@@ -62,9 +63,27 @@ class _MpesaState extends State<Mpesa> {
 
     // Proceed with registration if both fields are valid
     if (amountErrorText == null && phoneErrorText == null) {
-      //clear fields
-      amountController.clear();
-      phoneController.clear();
+      // Create a map of the data you want to send
+      Map<String, dynamic> userData = {
+        'amount': amount,
+        'phone': phone,
+      };
+      try {
+        // Send the data to Firestore
+        await FirebaseFirestore.instance.collection('users').add(userData);
+
+        // Clear fields
+        //clear fields
+        amountController.clear();
+        phoneController.clear();
+
+        // Navigate to dashboard
+        Navigator.pushNamed(context, '/');
+      } catch (e) {
+        // Handle any errors that occur during the data submission
+        print('Error submitting data: $e');
+      }
+
       //navigate to dashboard
       // Navigator.pushNamed(context, '/dashboard');
     }
@@ -119,7 +138,6 @@ class _MpesaState extends State<Mpesa> {
                 labelText: 'Amount',
                 errorText: amountErrorText,
               ),
-              obscureText: true,
             ),
             const SizedBox(height: 24.0),
             ElevatedButton(

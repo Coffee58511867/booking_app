@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,6 +25,28 @@ class _ProfilePageState extends State<ProfilePage> {
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
+
+  Future<bool> _onWillPop() async {
+    // Check the user's authentication state
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // User is logged in, allow navigation
+      return true;
+    } else {
+      // User is logged out, prevent navigation
+      return false;
+    }
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushNamed(context, '/');
+    } catch (e) {
+      print('Error signing out: $e');
+      // Handle any sign-out errors here
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +101,7 @@ class Profile extends StatelessWidget {
                 ),
               ),
               child: const Text("Logout"),
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              },
+              onPressed: () => _logout(context),
             )
           ],
         ),

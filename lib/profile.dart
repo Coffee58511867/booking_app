@@ -72,8 +72,8 @@ class Profile extends StatelessWidget {
               style: TextStyle(
                   fontFamily: AutofillHints.addressState, fontSize: 25.0),
             ),
-            const Text(
-              "User Profile",
+            Text(
+              userName!,
               style: TextStyle(
                   fontFamily: AutofillHints.addressState, fontSize: 25.0),
             ),

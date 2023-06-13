@@ -12,7 +12,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notifications Page"),
+        title: const Text("Booking "),
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
@@ -90,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
         color: const Color.fromARGB(255, 5, 109, 194),
         child: const Center(
           child: Text(
-            "Booking App",
+            "Booking",
             style: TextStyle(
                 fontSize: 34.0,
                 fontWeight: FontWeight.bold,

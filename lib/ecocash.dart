@@ -162,8 +162,48 @@ class _MpesaState extends State<Mpesa> {
               onPressed: _payment,
               child: const Text('Proceed to Pay'),
             ),
+            const SizedBox(height: 24.0),
+            const PaymentList(), // Widget to display payment list
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PaymentList extends StatelessWidget {
+  const PaymentList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('payments').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+
+          final payments = snapshot.data!.docs;
+
+          return ListView.builder(
+            itemCount: payments.length,
+            itemBuilder: (BuildContext context, int index) {
+              final payment = payments[index].data() as Map<String, dynamic>;
+              final amount = payment['amount'];
+              final phone = payment['phone'];
+
+              return ListTile(
+                title: Text('Amount: $amount'),
+                subtitle: Text('Phone: $phone'),
+              );
+            },
+          );
+        },
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:booking_app/login.dart';
 import 'package:booking_app/payment_list.dart';
 import 'package:booking_app/profile.dart';
 import 'package:booking_app/register.dart';
+import 'package:booking_app/splash.dart';
 import 'package:booking_app/tabs.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginPage(),
+        '/': (context) => const SplashPage(),
+        '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/profile': (context) => const ProfilePage(),
         '/dashboard': (context) => const DashboardPage(),

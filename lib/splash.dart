@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
@@ -90,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
         color: Colors.blue,
         child: const Center(
           child: Text(
-            "Welcome",
+            "Booking App",
             style: TextStyle(
                 fontSize: 34.0,
                 fontWeight: FontWeight.w700,

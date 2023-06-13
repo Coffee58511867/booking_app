@@ -34,6 +34,7 @@ class Profile extends StatelessWidget {
       return true;
     } else {
       // User is logged out, prevent navigation
+
       return false;
     }
   }
@@ -41,7 +42,7 @@ class Profile extends StatelessWidget {
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      Navigator.pushNamed(context, '/');
+      Navigator.pushNamed(context, '/login');
     } catch (e) {
       print('Error signing out: $e');
       // Handle any sign-out errors here

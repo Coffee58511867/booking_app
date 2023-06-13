@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -67,11 +68,28 @@ class _SigninState extends State<Signin> {
 
     // Proceed with registration if both fields are valid
     if (emailErrorText == null && passwordErrorText == null) {
-      //clear fields
-      emailController.clear();
-      passwordController.clear();
-      //navigate to dashboard
-      Navigator.pushNamed(context, '/dashboard');
+      try {
+        // Sign in the user with email and password
+        FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        )
+            .then((userCredential) {
+          // Clear fields
+          emailController.clear();
+          passwordController.clear();
+
+          // Navigate to dashboard or home screen
+          Navigator.pushNamed(context, '/dashboard');
+        }).catchError((error) {
+          // Handle login errors
+          print('Login error: $error');
+        });
+      } catch (e) {
+        // Handle any other errors that occur during login
+        print('Error occurred during login: $e');
+      }
     }
   }
 

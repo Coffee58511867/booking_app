@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? phoneErrorText;
   String? genderErrorText;
 
-  void _register() {
+  Future<void> _register() async {
     String email = emailController.text;
     String password = passwordController.text;
     String names = emailController.text;
@@ -90,14 +91,32 @@ class _RegisterPageState extends State<RegisterPage> {
         namesErrorText == null &&
         phoneErrorText == null &&
         genderErrorText == null) {
-      //clear fields
-      emailController.clear();
-      passwordController.clear();
-      phoneController.clear();
-      genderController.clear();
-      namesController.clear();
-      //navigate to dashboard
-      Navigator.pushNamed(context, '/');
+      // Create a map of the data you want to send
+      Map<String, dynamic> userData = {
+        'email': email,
+        'password': password,
+        'names': names,
+        'phone': phone,
+        'gender': gender,
+      };
+
+      try {
+        // Send the data to Firestore
+        await FirebaseFirestore.instance.collection('users').add(userData);
+
+        // Clear fields
+        emailController.clear();
+        passwordController.clear();
+        phoneController.clear();
+        genderController.clear();
+        namesController.clear();
+
+        // Navigate to dashboard
+        Navigator.pushNamed(context, '/');
+      } catch (e) {
+        // Handle any errors that occur during the data submission
+        print('Error submitting data: $e');
+      }
     }
   }
 

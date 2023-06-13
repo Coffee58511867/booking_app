@@ -4,9 +4,12 @@ import 'package:booking_app/login.dart';
 import 'package:booking_app/profile.dart';
 import 'package:booking_app/register.dart';
 import 'package:booking_app/tabs.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

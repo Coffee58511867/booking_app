@@ -26,29 +26,52 @@ class _PaymentListState extends State<PaymentList> {
     );
   }
 
-  Future<void> _deletePayment(String paymentId) async {
-    try {
-      // Delete the payment from Firestore
-      await FirebaseFirestore.instance
-          .collection('payments')
-          .doc(paymentId)
-          .delete();
-      Fluttertoast.showToast(
-        msg: "Payment Deleted Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.black54,
-        textColor: Colors.green,
-      );
-    } catch (e) {
-      print('Error deleting payment: $e');
-      Fluttertoast.showToast(
-        msg: "Something went wrong, please try again",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.black54,
-        textColor: Colors.red,
-      );
+  Future<void> _deletePayment(BuildContext context, String paymentId) async {
+    // Show an alert dialog to confirm the deletion
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Payment'),
+          content: Text('Are you sure you want to delete this payment?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true) {
+      try {
+        // Delete the payment from Firestore
+        await FirebaseFirestore.instance
+            .collection('payments')
+            .doc(paymentId)
+            .delete();
+        Fluttertoast.showToast(
+          msg: "Payment Deleted Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.black54,
+          textColor: Colors.green,
+        );
+      } catch (e) {
+        print('Error deleting payment: $e');
+        Fluttertoast.showToast(
+          msg: "Something went wrong, please try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.black54,
+          textColor: Colors.red,
+        );
+      }
     }
   }
 
@@ -95,7 +118,7 @@ class _PaymentListState extends State<PaymentList> {
                       ),
                       IconButton(
                         icon: Icon(Icons.delete),
-                        onPressed: () => _deletePayment(paymentId),
+                        onPressed: () => _deletePayment(context, paymentId),
                       ),
                     ],
                   ),

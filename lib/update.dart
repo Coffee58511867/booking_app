@@ -2,30 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class EcocashPage extends StatefulWidget {
-  const EcocashPage({super.key});
+class UpdatePayment extends StatefulWidget {
+  final String paymentId;
+  final String initialPhone;
+  final String initialAmount;
+
+  const UpdatePayment({
+    required this.paymentId,
+    required this.initialPhone,
+    required this.initialAmount,
+  });
 
   @override
-  State<EcocashPage> createState() => _EcocashPageState();
+  State<UpdatePayment> createState() => _UpdatePaymentState();
 }
 
-class _EcocashPageState extends State<EcocashPage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Mpesa(),
-    );
-  }
-}
-
-class Mpesa extends StatefulWidget {
-  const Mpesa({super.key});
-
-  @override
-  State<Mpesa> createState() => _MpesaState();
-}
-
-class _MpesaState extends State<Mpesa> {
+class _UpdatePaymentState extends State<UpdatePayment> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController amountController = TextEditingController();
 
@@ -157,95 +149,11 @@ class _MpesaState extends State<Mpesa> {
                 ),
               ),
               onPressed: _payment,
-              child: const Text('Proceed to Pay'),
+              child: const Text('Update Payment'),
             ),
             const SizedBox(height: 24.0),
-            const PaymentsList(), // Widget to display payment list
           ],
         ),
-      ),
-    );
-  }
-}
-
-class PaymentsList extends StatelessWidget {
-  const PaymentsList({Key? key}) : super(key: key);
-  Future<void> _deletePayment(String paymentId) async {
-    try {
-      // Delete the payment from Firestore
-      await FirebaseFirestore.instance
-          .collection('payments')
-          .doc(paymentId)
-          .delete();
-      Fluttertoast.showToast(
-        msg: "Payment Deleted Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.black54,
-        textColor: Colors.green,
-      );
-    } catch (e) {
-      print('Error deleting payment: $e');
-      Fluttertoast.showToast(
-        msg: "Something went wrong, please try again",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.black54,
-        textColor: Colors.red,
-      );
-    }
-  }
-
-  Future<void> _editPayment(
-      String paymentId, String phone, String amount) async {
-    // Implement your edit logic here
-    print('Edit payment with ID: $paymentId, Phone: $phone, Amount: $amount');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('payments').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          }
-
-          final payments = snapshot.data!.docs;
-
-          return ListView.builder(
-            itemCount: payments.length,
-            itemBuilder: (BuildContext context, int index) {
-              final payment = payments[index].data() as Map<String, dynamic>;
-              final amount = payment['amount'];
-              final phone = payment['phone'];
-              final paymentId = payments[index].id;
-
-              return ListTile(
-                title: Text('Amount: $amount'),
-                subtitle: Text('Phone: $phone'),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () => _editPayment(paymentId, phone, amount),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => _deletePayment(paymentId),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
       ),
     );
   }

@@ -9,16 +9,23 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Future<bool> _onWillPop() async {
+    return false; // Prevent navigating back using the back button
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings"),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Settings"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.blue,
+        ),
+        body: const Profile(),
       ),
-      body: const Profile(),
     );
   }
 }
@@ -42,7 +49,7 @@ class Profile extends StatelessWidget {
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     } catch (e) {
       print('Error signing out: $e');
       // Handle any sign-out errors here
@@ -51,6 +58,9 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the current user's email
+    String? userEmail = FirebaseAuth.instance.currentUser?.email;
+    String? userName = FirebaseAuth.instance.currentUser?.displayName;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -62,15 +72,8 @@ class Profile extends StatelessWidget {
               style: TextStyle(
                   fontFamily: AutofillHints.addressState, fontSize: 25.0),
             ),
-            const SizedBox(height: 16.0),
             const Text(
-              "Email Address",
-              style: TextStyle(
-                  fontFamily: AutofillHints.addressState, fontSize: 25.0),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              "User Address",
+              "User Profile",
               style: TextStyle(
                   fontFamily: AutofillHints.addressState, fontSize: 25.0),
             ),
@@ -78,14 +81,16 @@ class Profile extends StatelessWidget {
             Row(
               children: [
                 const Text(
-                  "User Profile",
+                  "Email",
                   style: TextStyle(
-                      fontFamily: AutofillHints.addressState, fontSize: 25.0),
+                      fontFamily: AutofillHints.addressState,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w400),
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 8.0),
-                  child: const Text(
-                    "hlalelemaroa@gmail.com",
+                  child: Text(
+                    userEmail!,
                     style: TextStyle(
                       fontFamily: AutofillHints.addressState,
                       fontSize: 18.0,

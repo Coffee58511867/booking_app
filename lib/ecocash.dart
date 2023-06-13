@@ -52,10 +52,6 @@ class _MpesaState extends State<Mpesa> {
       setState(() {
         amountErrorText = 'Amount is required';
       });
-    } else if (amount.length < 5) {
-      setState(() {
-        amountErrorText = 'Amount can not be Less than M5';
-      });
     } else {
       setState(() {
         amountErrorText = null;
@@ -89,7 +85,7 @@ class _MpesaState extends State<Mpesa> {
         );
 
         // Navigate to dashboard
-        Navigator.pushNamed(context, '/');
+        // Navigator.pushNamed(context, '/');
       } catch (e) {
         // Handle any errors that occur during the data submission
         print('Error submitting data: $e');
@@ -144,10 +140,6 @@ class _MpesaState extends State<Mpesa> {
                 if (value.isEmpty) {
                   setState(() {
                     amountErrorText = 'Amount is required';
-                  });
-                } else if (value.length < 8) {
-                  setState(() {
-                    amountErrorText = 'Amount can not be less than M5.00';
                   });
                 } else {
                   setState(() {

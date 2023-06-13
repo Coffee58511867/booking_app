@@ -35,6 +35,7 @@ class _SigninState extends State<Signin> {
 
   String? emailErrorText;
   String? passwordErrorText;
+  String? loginErrorText; // New variable for login error message
 
   void _register() {
     String email = emailController.text;
@@ -84,6 +85,10 @@ class _SigninState extends State<Signin> {
           Navigator.pushNamed(context, '/dashboard');
         }).catchError((error) {
           // Handle login errors
+          setState(() {
+            loginErrorText =
+                'Incorrect email or password'; // Set login error message
+          });
           print('Login error: $error');
         });
       } catch (e) {
@@ -148,6 +153,12 @@ class _SigninState extends State<Signin> {
                 errorText: passwordErrorText,
               ),
               obscureText: true,
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              loginErrorText ??
+                  '', // Show login error message if it's not null, otherwise show an empty string
+              style: TextStyle(color: Colors.red),
             ),
             const SizedBox(height: 24.0),
             ElevatedButton(

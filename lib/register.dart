@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -24,9 +25,9 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> _register() async {
     String email = emailController.text;
     String password = passwordController.text;
-    String names = emailController.text;
-    String phone = passwordController.text;
-    String gender = emailController.text;
+    String names = namesController.text;
+    String phone = phoneController.text;
+    String gender = genderController.text;
 
     // Validate email field
     if (email.isEmpty) {
@@ -101,6 +102,16 @@ class _RegisterPageState extends State<RegisterPage> {
       };
 
       try {
+        // Create user with email and password
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Get the newly created user's ID
+        String userId = userCredential.user!.uid;
+        print(userId);
         // Send the data to Firestore
         await FirebaseFirestore.instance.collection('users').add(userData);
 

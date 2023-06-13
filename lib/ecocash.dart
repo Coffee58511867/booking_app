@@ -1,3 +1,4 @@
+import 'package:booking_app/update.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -196,10 +197,19 @@ class PaymentsList extends StatelessWidget {
     }
   }
 
-  Future<void> _editPayment(
-      String paymentId, String phone, String amount) async {
-    // Implement your edit logic here
-    print('Edit payment with ID: $paymentId, Phone: $phone, Amount: $amount');
+  Future<void> _editPayment(BuildContext context, String paymentId,
+      String phone, String amount) async {
+    // Navigate to the UpdatePayment form for editing
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UpdatePayment(
+          paymentId: paymentId,
+          initialPhone: phone,
+          initialAmount: amount,
+        ),
+      ),
+    );
   }
 
   @override
@@ -234,7 +244,11 @@ class PaymentsList extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: Icon(Icons.edit),
-                      onPressed: () => _editPayment(paymentId, phone, amount),
+                      onPressed: () => IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () =>
+                            _editPayment(context, paymentId, phone, amount),
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.delete),

@@ -24,12 +24,12 @@ class _UpdatePaymentState extends State<UpdatePayment> {
   String? amountErrorText;
   String? phoneErrorText;
 
-  Future<void> _payment() async {
-    String phone = phoneController.text;
-    String amount = amountController.text;
+  Future<void> _updatePayment() async {
+    String updatedPhone = phoneController.text;
+    String updatedAmount = amountController.text;
 
     // Validate phone field
-    if (phone.isEmpty) {
+    if (updatedPhone.isEmpty) {
       setState(() {
         phoneErrorText = 'Phone number is required';
       });
@@ -40,7 +40,7 @@ class _UpdatePaymentState extends State<UpdatePayment> {
     }
 
     // Validate amount field
-    if (amount.isEmpty) {
+    if (updatedAmount.isEmpty) {
       setState(() {
         amountErrorText = 'Amount is required';
       });
@@ -50,60 +50,59 @@ class _UpdatePaymentState extends State<UpdatePayment> {
       });
     }
 
-    // Proceed with registration if both fields are valid
+    // Proceed with update if both fields are valid
     if (amountErrorText == null && phoneErrorText == null) {
-      // Create a map of the data you want to send
-      Map<String, dynamic> userData = {
-        'amount': amount,
-        'phone': phone,
-      };
       try {
-        // Send the data to Firestore
-        await FirebaseFirestore.instance.collection('payments').add(userData);
+        // Update the payment data in Firestore
+        await FirebaseFirestore.instance
+            .collection('payments')
+            .doc(widget.paymentId)
+            .update({
+          'phone': updatedPhone,
+          'amount': updatedAmount,
+        });
 
-        // Clear fields
-        //clear fields
-        amountController.clear();
-        phoneController.clear();
         Fluttertoast.showToast(
-          msg: "Payment Made Successfully",
-          toastLength: Toast
-              .LENGTH_SHORT, // Duration for which the toast will be visible
-          gravity: ToastGravity
-              .CENTER, // Position of the toast message on the screen
-          backgroundColor:
-              Colors.black54, // Background color of the toast message
-          textColor: Colors.green, // Text color of the toast message
+          msg: "Payment Updated Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.black54,
+          textColor: Colors.green,
         );
 
-        // Navigate to dashboard
-        // Navigator.pushNamed(context, '/payments');
+        // Navigate back to the payment list
+        Navigator.pop(context);
       } catch (e) {
-        // Handle any errors that occur during the data submission
-        print('Error submitting data: $e');
+        print('Error updating payment: $e');
         Fluttertoast.showToast(
-          msg: "Something went wrong please try again",
-          toastLength: Toast
-              .LENGTH_SHORT, // Duration for which the toast will be visible
-          gravity: ToastGravity
-              .CENTER, // Position of the toast message on the screen
-          backgroundColor:
-              Colors.black54, // Background color of the toast message
-          textColor: Colors.red, // Text color of the toast message
+          msg: "Something went wrong, please try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.black54,
+          textColor: Colors.red,
         );
       }
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+    phoneController.text = widget.initialPhone;
+    amountController.text = widget.initialAmount;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Update Payment'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 16.0),
             TextField(
               controller: phoneController,
               onChanged: (value) {
@@ -143,15 +142,9 @@ class _UpdatePaymentState extends State<UpdatePayment> {
             ),
             const SizedBox(height: 24.0),
             ElevatedButton(
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all<Size>(
-                  const Size(250, 30),
-                ),
-              ),
-              onPressed: _payment,
+              onPressed: _updatePayment,
               child: const Text('Update Payment'),
             ),
-            const SizedBox(height: 24.0),
           ],
         ),
       ),

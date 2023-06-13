@@ -57,12 +57,19 @@ class PaymentList extends StatelessWidget {
               return ListTile(
                 title: Text('Amount: $amount'),
                 subtitle: Text('Phone: $phone'),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  onPressed: () => _deletePayment(paymentId),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () => {},
+                      // onEdit(paymentId, phone, amount),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _deletePayment(paymentId),
+                    ),
+                  ],
                 ),
               );
             },

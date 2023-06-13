@@ -87,13 +87,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.blue,
+        color: const Color.fromARGB(255, 5, 109, 194),
         child: const Center(
           child: Text(
             "Booking App",
             style: TextStyle(
                 fontSize: 34.0,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
                 color: Colors.white),
           ),
         ),

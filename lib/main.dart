@@ -1,6 +1,7 @@
 import 'package:booking_app/dashboard.dart';
 import 'package:booking_app/home.dart';
 import 'package:booking_app/login.dart';
+import 'package:booking_app/payment_list.dart';
 import 'package:booking_app/profile.dart';
 import 'package:booking_app/register.dart';
 import 'package:booking_app/tabs.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/dashboard': (context) => const DashboardPage(),
         '/home': (context) => const HomePage(),
+        '/payments': (context) => const PaymentList(),
         '/tabs': (context) => const TabPage(),
       },
     );

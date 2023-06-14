@@ -21,7 +21,7 @@ class _TabPageState extends State<TabPage> {
             bottom: const TabBar(tabs: [
               Tab(text: "Mpesa"),
               Tab(text: "Ecocash"),
-              Tab(text: "Payments Made"),
+              Tab(text: "Payments"),
             ]),
           ),
           body: const TabBarView(

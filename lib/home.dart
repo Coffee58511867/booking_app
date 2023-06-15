@@ -38,6 +38,19 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text('Go to Tabs'),
             ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  const Size(250, 30),
+                ),
+              ),
+              onPressed: () {
+                //navigate to tabs Page
+                Navigator.pushNamed(context, '/uploadImage');
+              },
+              child: const Text('Upload Image'),
+            ),
           ],
         ),
       ),

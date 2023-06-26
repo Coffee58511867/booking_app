@@ -126,6 +126,9 @@ class _SigninState extends State<Signin> {
               },
               decoration: InputDecoration(
                 labelText: 'Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
                 errorText: emailErrorText,
               ),
             ),
@@ -150,6 +153,9 @@ class _SigninState extends State<Signin> {
               },
               decoration: InputDecoration(
                 labelText: 'Password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
                 errorText: passwordErrorText,
               ),
               obscureText: true,
